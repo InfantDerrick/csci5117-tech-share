@@ -1,11 +1,16 @@
+
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './Login';
 import ChatRoom from './ChatRoom';
 
 function App() {
   return (
-    <div>
-      <h1>Chat Room</h1>
-      <ChatRoom />
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Login/>} />
+        <Route path="/chat" element={<ChatRoom/>} />
+      </Routes>
+    </Router>
   );
 }
 
