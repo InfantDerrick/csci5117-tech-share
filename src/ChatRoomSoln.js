@@ -28,7 +28,7 @@ function ChatRoom() {
   const getMessages = async () => {
     
     const messagesRef = collection(db, "messages");
-    const q = query(messagesRef, orderBy("timestamp", "asc"));
+    const q = query(messagesRef, orderBy("timestamp", "desc"), limit(30));;
     const querySnapshot = await getDocs(q);
     const messagesData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -46,7 +46,7 @@ function ChatRoom() {
       Unsubscribe from the listener when the component unmounts to prevent memory leaks */
   useEffect(() => {
     const messagesRef = collection(db, "messages");
-    const q = query(messagesRef, orderBy("timestamp", "asc"));
+    const q = query(messagesRef, orderBy("timestamp", "desc"), limit(30));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const messagesData = snapshot.docs.map((doc) => ({
         id: doc.id,
