@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, query, orderBy, onSnapshot, addDoc } from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, addDoc, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { db, auth } from './firebase'
@@ -26,7 +26,15 @@ function ChatRoom() {
 
   const sendMessage = () => {};
 
+  /* TODO: Write a function that fetches the messages from the Firestore database and returns them as an array of objects with the message data, including the message ID.
+    The messages should be sorted by timestamp in ascending order.
+    Handle any errors that may occur during the retrieval process.
+    Consider adding parameters to the function to filter messages based on certain criteria, such as user or date.
+    Once the messages are retrieved, update the state of the component or perform any other necessary action with the data.
+  */
+  const getMessages = async () => {}
 
+  getMessages();
 
   // TODO: Implement the handleLogout function which signs the user out using the Firebase auth API and redirects them to the home page.
   const handleLogout = () => {};

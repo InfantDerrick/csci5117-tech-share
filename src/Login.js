@@ -10,44 +10,28 @@ function Login() {
   const [error, setError] = useState(null);
   const [isSignUp, setIsSignUp] = useState(false);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        navigate("/chat");
-      }
-    });
-    return unsubscribe;
-  }, [navigate]);
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log("Sign up successful:", userCredential.user);
-      navigate("/chat");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log("Login successful:", userCredential.user);
-      navigate("/chat");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  /*
+    TODO: Write a function to handle user sign up. 
+    The function should take in the user's email and password and attempt to create a new user account with Firebase authentication using createUserWithEmailAndPassword method. 
+    If successful, log the new user's information to the console and navigate to the chat page. 
+    If there is an error, set the error state with the error message.
+  */
+  const handleSignUp = () => {};
+
+  /*
+    TODO: Implement login functionality. This function should attempt to sign in the user using their email and password. 
+    If successful, it should navigate the user to the chat page. 
+    Otherwise, it should display the error message returned by Firebase.
+
+  */
+  const handleLogin = () => {};
+
+  /*
+    TODO: This useEffect hook is used to redirect the user to the chat page if they are already authenticated. 
+    You may consider adding a comment to explain this behavior.
+  */
 
   const handleToggle = () => {
     setIsSignUp(!isSignUp);

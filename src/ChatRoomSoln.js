@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, query, orderBy, onSnapshot, addDoc } from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, addDoc, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { db, auth } from './firebase'
@@ -24,6 +24,21 @@ function ChatRoom() {
     });
     return unsubscribe;
   }, [navigate]);
+
+  const getMessages = async () => {
+    
+    const messagesRef = collection(db, "messages");
+    const q = query(messagesRef, orderBy("timestamp", "asc"));
+    const querySnapshot = await getDocs(q);
+    const messagesData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+    console.log(messagesData);
+  }
+
+  getMessages();
+
 
   // Fetch messages from Firestore on component mount
   /*  TODO: Fetch messages from Firestore and update state using onSnapshot listener
