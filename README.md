@@ -18,6 +18,8 @@ Run the following 2 commands:
 ## Read
 
 ## Write
+
+## Auth
 Firebase Authentication is a service provided by Google's Firebase platform that enables you to authenticate users with your application. With Firebase Authentication, you can easily add authentication to your application and give your users a streamlined sign-in experience alongside with everything else in your backend!
 
 To get started with Firebase Authentication, you will need to do the following:
