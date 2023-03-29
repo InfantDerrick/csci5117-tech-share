@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { collection, query, orderBy, onSnapshot, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { db, auth } from './firebase'
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -26,6 +26,9 @@ function ChatRoom() {
   }, [navigate]);
 
   // Fetch messages from Firestore on component mount
+  /*  TODO: Fetch messages from Firestore and update state using onSnapshot listener
+      The messages are ordered by timestamp in ascending order
+      Unsubscribe from the listener when the component unmounts to prevent memory leaks */
   useEffect(() => {
     const messagesRef = collection(db, "messages");
     const q = query(messagesRef, orderBy("timestamp", "asc"));
@@ -54,13 +57,20 @@ function ChatRoom() {
     message.username?.toLowerCase().includes(search.toLowerCase())
   );
 
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/");
+  };
+
+
   return (
     <div>
       {authenticated ? 
       (        <div className="container my-4">
       <div className="card">
         <div className="card-header bg-primary text-white">
-          <h4 className="mb-0">Chat Room</h4>
+          <h4 className="mb-0">CSCI 5117 - Chat Room</h4>
+          <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
         </div>
         <div className="card-body">
           <div className="form-group">
