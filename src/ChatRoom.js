@@ -109,7 +109,6 @@ function ChatRoom() {
                   }
                 }}
               />
-              <button className="btn btn-primary">Send</button>
             </div>
           </form>
         </div>

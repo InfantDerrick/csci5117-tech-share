@@ -6,16 +6,17 @@ import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDQ3Pt4z-KksnyqdZR2O2lQklXFHqc-CKc",
-  authDomain: "csci5117-tech-share.firebaseapp.com",
-  projectId: "csci5117-tech-share",
-  storageBucket: "csci5117-tech-share.appspot.com",
-  messagingSenderId: "400210359315",
-  appId: "1:400210359315:web:837a6045b5b8066ae2fbe6",
-  measurementId: "G-3WRN0V71F2"
+  apiKey: "AIzaSyBu2vC4aQg6TvJ_9XicPOJhbp_NbyoH-6Y",
+  authDomain: "civitas-4b8e7.firebaseapp.com",
+  projectId: "civitas-4b8e7",
+  storageBucket: "civitas-4b8e7.appspot.com",
+  messagingSenderId: "702417617562",
+  appId: "1:702417617562:web:e501a905826e7f09f2d523",
+  measurementId: "G-4380018QSL"
 };
 
 // Initialize Firebase
