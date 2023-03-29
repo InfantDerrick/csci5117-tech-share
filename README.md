@@ -17,7 +17,7 @@ Run the following 2 commands:
 # Useful Examples
 ## Read
 
-Reading Data from Firestore to your application is one of the most important aspects of the Chat Room. In this demo, we will be showing two different ways to read the data. The first method is a simple get function, which connnects to Firestore and reads the data once. Here is the code below:
+Reading Data from Firestore to your application is one of the most important aspects of the Chat Room. In this demo, we will be showing two different ways to read the data from Firestore. The first method is a simple get function, which connnects to Firestore and reads the data once on demand. Here is the code below:
 ```js 
 const getMessages = async () => {
     
