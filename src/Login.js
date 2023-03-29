@@ -33,6 +33,8 @@ function Login() {
     You may consider adding a comment to explain this behavior.
   */
 
+  useEffect(() => {}, []);
+
   const handleToggle = () => {
     setIsSignUp(!isSignUp);
     setError(null);
