@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, query, orderBy, onSnapshot, addDoc, getDocs, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { db, auth } from './firebase'
 import 'bootstrap/dist/css/bootstrap.css';
 
 function ChatRoom() {
@@ -33,7 +30,7 @@ function ChatRoom() {
   const filteredMessages = messages.filter((message) =>
     message.text?.toLowerCase().includes(search.toLowerCase()) ||
     message.username?.toLowerCase().includes(search.toLowerCase())
-  );
+  ).reverse();
 
   /*
     TODO: Add a description for the sendMessage function that sends a new 

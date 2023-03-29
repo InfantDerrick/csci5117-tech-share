@@ -73,7 +73,7 @@ function ChatRoom() {
   const filteredMessages = messages.filter((message) =>
     message.text?.toLowerCase().includes(search.toLowerCase()) ||
     message.username?.toLowerCase().includes(search.toLowerCase())
-  );
+  ).reverse();
 
   const handleLogout = async () => {
     await signOut(auth);
