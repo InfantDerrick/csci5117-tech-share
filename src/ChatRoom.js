@@ -101,7 +101,7 @@ function ChatRoom() {
               <input
                 type="text"
                 className="form-control mr-2"
-                placeholder="Enter a message"
+                placeholder="Enter a message and Press Enter/Return to Send"
                 onKeyPress={(e) => {
                   if (e.key === "Enter" && e.target.value.trim() !== "") {
                     sendMessage(e.target.value.trim());
