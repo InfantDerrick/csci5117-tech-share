@@ -17,6 +17,39 @@ Run the following 2 commands:
 # Useful Examples
 ## Read
 
+Reading Data from Firestore to your application is one of the most important aspects of the Chat Room. In this demo, we will be showing two different ways to read the data. The first method is a simple get function, which connnects to Firestore and reads the data once. Here is the code below:
+```js 
+const getMessages = async () => {
+    
+    const messagesRef = collection(db, "messages");
+    const q = query(messagesRef, orderBy("timestamp", "asc"));
+    const querySnapshot = await getDocs(q);
+    const messagesData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+    console.log(messagesData);
+  }
+
+  getMessages();
+```
+
+In a real-time database, we want to read based on changes in our React state, so that we dynamically change our React components. The best way to read data with this intention is to add a listener that waits for a change in state to trigger a read to Firestore. This approach uses the "onSnapshot" listener and the useEffect hook to dynamically trigger reads based off of changes to effectively read the data from Firestore. Here is the code below:
+```js 
+useEffect(() => {
+    const messagesRef = collection(db, "messages");
+    const q = query(messagesRef, orderBy("timestamp", "asc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const messagesData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setMessages(messagesData);
+    });
+    return unsubscribe;
+  }, []);
+```
+
 ## Write
 You are able to write data to the Firestore DB by utilizing the function you are importing from Firebase.
 
