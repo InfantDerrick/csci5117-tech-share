@@ -9,32 +9,61 @@ function ChatRoom() {
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [search, setSearch] = useState("");
-  const [username, setUsername] = useState("baseUser");
-  const [authenticated, setAuthenticated] = useState(true); //should change later
+  const [username, setUsername] = useState(null);
+  const [authenticated, setAuthenticated] = useState(false);
 
-
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuthenticated(true);
+        setUsername(user.email.split("@")[0]);
+      } else {
+        setAuthenticated(false);
+        navigate("/");
+      }
+    });
+    return unsubscribe;
+  }, [navigate]);
 
   // Fetch messages from Firestore on component mount
   /*  TODO: Fetch messages from Firestore and update state using onSnapshot listener
       The messages are ordered by timestamp in ascending order
       Unsubscribe from the listener when the component unmounts to prevent memory leaks */
+  useEffect(() => {
+    const messagesRef = collection(db, "messages");
+    const q = query(messagesRef, orderBy("timestamp", "asc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const messagesData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setMessages(messagesData);
+    });
+    return unsubscribe;
+  }, []);
 
+
+
+
+  // Add message to Firestore
+  const sendMessage = async (content) => {
+    await addDoc(collection(db, "messages"), {
+      text: content,
+      username: username,
+      timestamp: new Date()
+    });
+  };
+
+  // Filter messages based on search query
   const filteredMessages = messages.filter((message) =>
     message.text?.toLowerCase().includes(search.toLowerCase()) ||
     message.username?.toLowerCase().includes(search.toLowerCase())
   );
 
-  const sendMessage = () => {};
-
-
-
-  // TODO: Implement the handleLogout function which signs the user out using the Firebase auth API and redirects them to the home page.
-  const handleLogout = () => {};
-
-  /* TODO: This useEffect hook listens for changes in the user's authentication state. 
-    When the user logs in or logs out, it updates the state of the username and authentication status. 
-    If the user is not authenticated, it redirects them to the login page.
-  */
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/");
+  };
 
 
   return (
