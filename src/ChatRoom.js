@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, query, orderBy, onSnapshot, addDoc } from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, addDoc, limit } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { db, auth } from './firebase'
@@ -31,7 +31,7 @@ function ChatRoom() {
       Unsubscribe from the listener when the component unmounts to prevent memory leaks */
   useEffect(() => {
     const messagesRef = collection(db, "messages");
-    const q = query(messagesRef, orderBy("timestamp", "asc"));
+    const q = query(messagesRef, orderBy("timestamp", "desc"), limit(30));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const messagesData = snapshot.docs.map((doc) => ({
         id: doc.id,
